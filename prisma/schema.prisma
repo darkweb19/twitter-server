@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// here ? means optional not compulsion
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,6 +16,21 @@ model User {
   lastname String?
   email String? @unique
   profileImageUrl String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  tweets Tweet[]
+}
+model Tweet {
+  id String @id @default(cuid())
+  content String
+  imageUrl String?
+
+  author User @relation(fields: [authorId] , references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
 }
